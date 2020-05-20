@@ -3,6 +3,8 @@
 @widthblock: 1140px;
 @minheight: 100vh;
 
+
+
 * {
     margin: 0;
     padding: 0;
@@ -157,20 +159,16 @@ nav {
 
 .promo {
     background-color: #e8e8e8;
+    min-height: 613px;
+    background-image: url(img/promo.png);
+    background-position: center -51px;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
-    .promo_content {
-        min-height: 613px;
-        background-image: url(img/promo.png);
-        background-position: 0 -51px;
-        background-position-x: center;
-        background-repeat: no-repeat;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
 
-    }
-
-    .promo_content>h1 {
+    &>h1 {
         font-size: 60px;
         font-weight: 900;
         color: #222222;
@@ -180,7 +178,7 @@ nav {
 
     }
 
-    .promo_content>h3 {
+    &>h3 {
         font-size: 40px;
         font-weight: 900;
         color: #222222;
@@ -286,84 +284,58 @@ nav {
     .product {
         width: 260px;
         margin-bottom: 31px;
-        background-color: #3a3838;
+        position: relative;
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
+        flex-wrap: wrap;
 
-        &:hover {
-            box-shadow: 0px 5px 8px 0px #000000;
+        & .product_img {
+            width: 100%;
         }
 
-        &>.button_addToCart {
-            height: 283px;
-            background: #3a3838;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0%;
-            font-size: 13px;
-            font-weight: bold;
-            color: #ffffff;
+        &:hover {
+            box-shadow: 0px 5px 8px 0px rgba(0, 0, 0, 0.16);
+        }
 
-            &>.forborder {
-                outline: 1px solid white;
-                padding: 10px;
-                display: flex;
-                align-items: center;
-            }
-
-            &>.forborder>img {
-                padding-right: 15px;
-
-            }
+        &:hover>a>.product_img {
+            filter: brightness(50%);
         }
 
         &:hover>.button_addToCart {
-            opacity: 90%;
+            display: flex;
         }
 
-        &.number_1 {
-            background-image: url(img/product1.png);
-            background-repeat: no-repeat;
+        &>.button_addToCart {
+            position: absolute;
+            top: 97px;
+            left: 70px;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            font-size: 13px;
+            font-weight: bold;
+            color: #ffffff;
+            height: 39px;
+            width: 123px;
+            outline: 1px solid white;
+
+            &:hover {
+                box-shadow: 0px 0px 5px 0px white;
+            }
+
+            &>p {
+                display: flex;
+                align-items: center;
+
+                &::before {
+                    content: url(img/cart-white.png);
+                    padding-right: 10px;
+                }
+            }
         }
 
-        &.number_2 {
-            background-image: url(img/product2.png);
-            background-repeat: no-repeat;
-        }
-
-        &.number_3 {
-            background-image: url(img/product3.png);
-            background-repeat: no-repeat;
-        }
-
-        &.number_4 {
-            background-image: url(img/product4.png);
-            background-repeat: no-repeat;
-        }
-
-        &.number_5 {
-            background-image: url(img/product5.png);
-            background-repeat: no-repeat;
-        }
-
-        &.number_6 {
-            background-image: url(img/product6.png);
-            background-repeat: no-repeat;
-        }
-
-        &.number_7 {
-            background-image: url(img/product7.png);
-            background-repeat: no-repeat;
-        }
-
-        &.number_8 {
-            background-image: url(img/product8.png);
-            background-repeat: no-repeat;
-        }
-
-        &>h6 {
+        &>a>h6 {
             font-size: 13px;
             color: #222222;
             text-transform: uppercase;
@@ -372,7 +344,7 @@ nav {
             background-color: white;
         }
 
-        &>span {
+        &>a>span {
             font-size: 16px;
             font-weight: bold;
             color: #f16d7f;
@@ -381,15 +353,15 @@ nav {
             display: block;
             background-color: white;
         }
-
     }
 
     &>a {
         width: 212px;
         align-self: center;
     }
-
 }
+
+
 
 .atvanteges {
 
@@ -464,12 +436,14 @@ nav {
 
 }
 
+
 .subscribe {
     display: flex;
     min-height: 438px;
+
+    background: rgba(242, 242, 242, 0.5) url(img/subscribe.png);
     background-position: center;
-    background-image: url(img/subscribe.png);
-    background-color: rgba(242, 242, 242, 0.5);
+    // background-color: rgba(242, 242, 242, 0.5);
     background-repeat: no-repeat;
     background-size: contain;
     margin-top: 100px;
@@ -481,12 +455,12 @@ nav {
         align-self: center;
         padding-bottom: 65px;
 
-        &>img {
+        &>article>img {
             float: left;
             padding-right: 20px;
         }
 
-        &>p {
+        &>article>p {
             font-size: 16px;
             font-style: italic;
             color: #222224;
@@ -497,7 +471,7 @@ nav {
             padding-top: 10px;
         }
 
-        &>.name {
+        &>article>.name {
             font-size: 16px;
             font-weight: bold;
             color: #f16d7f;
@@ -507,7 +481,7 @@ nav {
             margin-top: 15px;
         }
 
-        &>.city {
+        &>article>.city {
             font-size: 12px;
             font-weight: 300;
             color: #222224;
@@ -540,7 +514,7 @@ nav {
         padding-right: 100px;
         align-self: center;
 
-        &>h3 {
+        &>section>h3 {
             font-size: 24px;
             color: #222224;
             text-align: center;
@@ -548,7 +522,7 @@ nav {
             text-transform: uppercase;
         }
 
-        &>h4 {
+        &>section>h4 {
             font-family: 'Lato';
             font-size: 14px;
             color: #222224;
@@ -558,7 +532,7 @@ nav {
             margin-bottom: 35px;
         }
 
-        &>.subscribe_form {
+        &>section>.subscribe_form {
             &>input {
                 float: left;
                 width: 300px;
@@ -648,25 +622,24 @@ nav {
 }
 
 footer {
-    min-height: 100px;
-    background-color: #e6e6e6;
-    font-size: 16px;
-    color: #7a7a7a;
-    text-align: right;
-    letter-spacing: 0.03em;
-    line-height: 42px;
-
-    &>.center {
+    .footer {
+        min-height: 100px;
+        background-color: #e6e6e6;
+        font-size: 16px;
+        color: #7a7a7a;
+        text-align: right;
+        letter-spacing: 0.03em;
+        line-height: 42px;
         display: flex;
         justify-content: space-between;
         align-items: center;
         margin-top: 30px;
 
-        & .footer_link {
+        & nav .footer_link {
             list-style-type: none;
         }
 
-        & .footer_link>.link {
+        & nav .footer_link>.link {
             float: left;
             height: 32px;
             width: 32px;
@@ -682,7 +655,8 @@ footer {
             }
 
         }
+
     }
-
-
 }
+
+@import "blocks/_products";
