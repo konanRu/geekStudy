@@ -66,14 +66,25 @@ header {
         align-items: center;
     }
 
-    .logo_img {
-        margin-right: 13px;
-    }
-
     .header_form {
         display: flex;
         align-items: center;
         margin-left: 37px;
+
+        &>input {
+            height: 38px;
+            width: 317px;
+            padding: 0px 15px;
+            background-color: #ffffff;
+            border: 1px solid #e6e6e6;
+            border-right: none;
+            border-left: none;
+
+            &:focus {
+                outline: none;
+            }
+        }
+
     }
 
     .header_cart {
@@ -148,7 +159,7 @@ header {
 
 
     .browse {
-        height: 38px;
+        height: 36px;
         width: 87px;
         display: flex;
         align-items: center;
@@ -174,21 +185,18 @@ header {
 
     }
 
-    input {
-        height: 38px;
-        width: 317px;
-        background-color: #ffffff;
-        border: 1px solid #e6e6e6;
-        border-right: none;
-    }
-
     .search {
-        padding: 9px 10px;
-        border: 1px solid #e6e6e6;
+        border: none;
+        padding: 9.5px 10px;
+        outline: 1px solid #e6e6e6;
         border-radius: 0px 3px 3px 0px;
     }
 
 
+}
+
+.logo_img {
+    margin-right: 8px;
 }
 
 .button {
@@ -685,6 +693,7 @@ nav {
 
                 &:focus,
                 &:focus+.button {
+                    outline: none;
                     box-shadow: 0px 5px 8px 0px #000000;
                 }
             }
@@ -813,4 +822,5 @@ footer {
 }
 
 @import "blocks/_products";
-@import "blocks/_single_page.less";
+@import "blocks/_single_page";
+@import "blocks/_shopping_cart";
