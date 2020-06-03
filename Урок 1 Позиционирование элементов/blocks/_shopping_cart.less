@@ -3,7 +3,7 @@
 .shopping_bar {
     margin: 90px 0 60px 0;
 
-    .products_row {
+    &>.products_row {
         display: flex;
         justify-content: space-around;
         border-top: 1px solid #eaeaea;
@@ -14,7 +14,7 @@
         }
     }
 
-    .left {
+    &>.products_row>.left {
         display: flex;
         align-items: center;
         width: 45%;
@@ -46,7 +46,7 @@
 
     }
 
-    .right {
+    &>.products_row>.right {
         display: flex;
         justify-content: space-between;
         flex-grow: 1;

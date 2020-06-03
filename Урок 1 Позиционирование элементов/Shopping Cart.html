@@ -18,16 +18,68 @@
                         BRAN<span>D</span>
                     </a>
                     <form action="#" class="header_form">
-                        <div class="browse">Browse</div>
+                        <div class="browse">Browse
+                            <div class="drop drop_browse">
+                                <div class="drop_flex">
+                                    <h3 class="drop_h3">Women</h3>
+                                    <ul class="drop_ul">
+                                        <li><a href="#" class="drop_a">Dresses</a></li>
+                                        <li><a href="#" class="drop_a">Tops</a></li>
+                                        <li><a href="#" class="drop_a">Sweaters/Knits</a></li>
+                                        <li><a href="#" class="drop_a">Jackets/Coats</a></li>
+                                        <li><a href="#" class="drop_a">Blazers</a></li>
+                                        <li><a href="#" class="drop_a">Denim</a></li>
+                                        <li><a href="#" class="drop_a">Leggings/Pants</a></li>
+                                        <li><a href="#" class="drop_a">Skirts/Shorts</a></li>
+                                        <li><a href="#" class="drop_a">Accessories</a></li>
+                                    </ul>
+                                    <h3 class="drop_h3">Men</h3>
+                                    <ul class="drop_ul">
+                                        <li><a href="#" class="drop_a">Tees/Tank tops</a></li>
+                                        <li><a href="#" class="drop_a">Shirts/Polos</a></li>
+                                        <li><a href="#" class="drop_a">Sweaters</a></li>
+                                        <li><a href="#" class="drop_a">Sweatshirts/Hoodies</a></li>
+                                        <li><a href="#" class="drop_a">Blazers</a></li>
+                                        <li><a href="#" class="drop_a">Jackets/vests</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                         <input type="text">
                         <button class="search" type="submit"><img src="img/seach.png" alt="search"></button>
                     </form>
                 </div>
                 <div class="header_right">
-                    <div class="header_cart">
+                    <div class="header_cart shake-bottom">
                         <a href="Shopping Cart.html"><img src="img/cart.png" alt="cart"></a>
+                        <div class="drop drop_cart">
+                            <div class="drop_cart_product">
+                                <a href="#" class="drop_cart_a"><img src="img/in_cart.png" alt="photo"></a>
+                                <div class="text_in_cart">
+                                    <h3>Rebox Zane</h3>
+                                    <a href="#" class="drop_cart_a"><img src="img/stars_incart.png" alt="photo"></a>
+                                    <h4>1x$250</h4>
+                                </div>
+                                <a href="#" class="drop_cart_a"><img src="img/delet_incart.png" alt="photo"></a>
+                            </div>
+                            <div class="drop_cart_product">
+                                <a href="#" class="drop_cart_a"><img src="img/in_cart2.png" alt="photo"></a>
+                                <div class="text_in_cart">
+                                    <h3>Rebox Zane</h3>
+                                    <a href="#" class="drop_cart_a"><img src="img/stars_incart.png" alt="photo"></a>
+                                    <h4>1x$250</h4>
+                                </div>
+                                <a href="#" class="drop_cart_a"><img src="img/delet_incart.png" alt="photo"></a>
+                            </div>
+                            <div class="drop_cart_product">
+                                <h3 class="drop_cart_h2">TOTAL</h3>
+                                <h3 class="drop_cart_h2">$500.00</h3>
+                            </div>
+                            <a href="#" class="drop_cart_button">Checkout</a>
+                            <a href="#" class="drop_cart_button">Go&nbsp;to&nbsp;cart</a>
+                        </div>
                     </div>
-                    <a href="#" class="button">My Account</a>
+                    <a href="Checkout.html" class="button">My Account</a>
                 </div>
             </header>
             <nav class="center">
@@ -171,8 +223,8 @@
                 <form action="#" class="shippin_form center">
                     <div class="shippin_box">
                         <h2 class="shippin_form_h2">Shipping Adress</h2>
-                        <input id="fruit" list="dl_fruits" class="shippin_form_input" placeholder="Bangladesh">
-                        <datalist id="dl_fruits">
+                        <input id="city" list="dl_city" class="shippin_form_input" placeholder="Bangladesh">
+                        <datalist id="dl_city">
                             <option label="Bangladesh" value="Bangladesh"></option>
                             <option label="USA" value="USA"></option>
                             <option label="China" value="China"></option>
@@ -183,7 +235,6 @@
                         <div class="shippin_form_button">
                             <a href="#" class="shippin_form_link">get a quote </a>
                         </div>
-
                     </div>
                     <div class="shippin_box">
                         <h2 class="shippin_form_h2">coupon discount</h2>
@@ -196,7 +247,7 @@
                     <div class="shippin_box summaries">
                         <p class="shippin_form_text">Sub total<span>$900</span></p>
                         <h3 class="shippin_form_text_h3">Sub total<span>$900</span></h3>
-                        <a href="#" class="button shippin_summaries_box">proceed to checkout</a>
+                        <a href="Checkout.html" class="button shippin_summaries_box">proceed to checkout</a>
                     </div>
                 </form>
             </main>
@@ -280,7 +331,7 @@
                     </nav>
                 </section>
                 <section class="footer center">
-                    <p>&copy 2020 Brand All Rights Reserved.</p>
+                    <p class="rotate180">&copy 2020 Brand All Rights Reserved.</p>
                     <nav>
                         <ul class="footer_link">
                             <li class="link"><a href="#"><img src="img/facebook.png" alt="facebook"></a></li>
