@@ -1,111 +1,99 @@
 'use strict';
 
+
+/**
+ * С помощью цикла while вывести все простые числа в промежутке от 0 до 100.
+ */
 function task1() {
-    let a = 1,
-        b = 1,
-        c, d;
+    /**
+     * возвращает true если аргумент является простым числом, иначе false/
+     * @param {*} num - число для проверки на свойство "простоты"
+     */
+    function chek_easy_number(num) {
+        if (easy_numbers.length > 0) {
+            for (let easy_number of easy_numbers) {
+                if (num % easy_number === 0) {
+                    return false;
+                }
+            }
+        }
+        easy_numbers.push(num);
+        return true;
+    };
 
-    c = ++a;
-    alert(c);
-    // 2   
-    // 1. Сначала увеличивается "а" на единицу
-    // 2. Затем записывается в "с"
-
-    d = b++;
-    alert(d);
-    // 1  Сначала записывается "b" в "d"
-    // // 2. Затем увеличивается "b" на еденицу
-
-    c = (2 + ++a);
-    alert(c);
-    // 5 
-    // 1. Сначала "a" увеличивается на единицу "a" = 3
-    // 2. Затем к 2 пибавляется "a"
-
-    d = (2 + b++);
-    alert(d);
-    // 4
-    // 1. Сначала "b" прибавляется к 2
-    // 2. Затем "b" увеличивается на единицу до 3 
-
-    alert(a); // 3
-    alert(b); // 3
-}
-
-function task2() {
-    let a = 2;
-    let x = 1 + (a *= 2);
-    // 1. "a" присваевается 2
-    // 2. 2 умножается на 2 результат записывается в "a" = 4
-    // 3. к "a"
-    // прибавляется 1 результат записывается в "x"
-}
-
-function task3() {
-    let a = Number(prompt("Введите целое число a"));
-    let b = Number(prompt("Введите целое число b"));
-
-    if (a >= 0 && b >= 0) {
-        console.log(a - b)
-    } else if (a < 0 && b < 0) {
-        console.log(a * b)
-    } else if (Math.sign(a) !== Math.sign(b)) {
-        console.log(a + b)
+    let easy_numbers = [];
+    let i = 1;
+    while (i < 100) {
+        i++;
+        if (chek_easy_number(i)) {
+            console.log(i);
+        }
     }
 }
-// task4
+
 /**
- * Возвращает сумму чисел a и b
- * @param {*} a первый операнд, по умолчанию = 7
- * @param {*} b второй операнд, по умолчанию = 8 
+ * 3. Товары в корзине хранятся в массиве. Задачи:
+ * a) Организовать такой массив для хранения товаров в корзине;
+ * b) Организовать функцию countBasketPrice, которая будет считать стоимость корзины.
  */
-function mySum(a = 7, b = 8) {
-    return a + b;
-}
+// function task3() {
+
 /**
- * Возвращает разность чисел a и b
- * @param {*} a первый операнд, по умолчанию = 7
- * @param {*} b второй операнд, по умолчанию = 8 
+ * Возвращает сумму товаров, находящихся в корзине покупок.
+ * @param {*} shopping_cart - массив с данными корзины покупок.
  */
-function myDiff(a = 7, b = 8) {
-    return a - b;
-}
-/**
- * Возвращает результат деления числа a на b
- * @param {*} a первый операнд, по умолчанию = 7
- * @param {*} b второй операнд, по умолчанию = 8 
- */
-function myDiv(a = 7, b = 8) {
-    return a / b;
-}
-/**
- * Возвращает произведение чисел a и b
- * @param {*} a первый операнд, по умолчанию = 7
- * @param {*} b второй операнд, по умолчанию = 8 
- */
-function myMult(a = 7, b = 8) {
-    return a * b;
+function getSumCart(shopping_cart) {
+    let amountOfPurchase = 0;
+    if (shopping_cart.length > 0) {
+        for (let productInCart of shopping_cart) {
+            amountOfPurchase = amountOfPurchase + (productInCart.quantity * productInCart.price);
+        }
+        return amountOfPurchase;
+    }
+    return 'Корзина пуста!';
 }
 
-// task5
-/**
- * Возвращает результат матемачической операции (+,-,/,*) над arg1 и arg2, которая задается пользователем
- * @param {*} arg1 первый операнд, по умолчанию = 7
- * @param {*} arg2 второй операнд, по умолчанию = 8 
- * @param {*} operation операция, записывается в виде знака (+,-,/,*), по умолчанию = "+"
- */
-function mathOperation(arg1, arg2, operation = "+") {
-    switch (operation) {
-        case "+":
-            return mySum(arg1, arg2);
-        case "-":
-            return myDiff(arg1, arg2);
-        case "/":
-            return myDiv(arg1, arg2);
-        case "*":
-            return myMult(arg1, arg2);
-        default:
-            alert("Такая матиматическая не задана! Выберите только одну +,-,/,*.")
-            throw new Error("Такая матиматическая не задана!")
+let shopping_cart = [
+    {
+        article: 5,
+        quantity: 27,
+        price: 5
+    },
+    {
+        article: 9,
+        quantity: 15,
+        price: 75
     }
+];
+console.log(getSumCart(shopping_cart))
+// }
+
+/**
+ * Вывести с помощью цикла for числа от 0 до 9, не используя тело цикла. 
+ */
+function task4() {
+    let j = 0;
+    let i = 0;
+    while (j < 9) {
+        ++j;
+        for (; i < j; i++) {}
+        console.log(i);
+    }
+
+}
+
+/**
+ * Нарисовать пирамиду с помощью console.log, как показано на рисунке, только у вашей пирамиды должно быть 20 рядов, а не 5:
+ */
+function task5() {
+    let x_arr = [];
+    let x_string = "";
+    for (let j = 1; j < 21; j++) {
+        for (let i = 0; i < j; i++) {
+            x_string = x_string + 'x';
+        }
+        x_arr.push(x_string);
+        x_string = '';
+    }
+    console.log(x_arr);
 }
