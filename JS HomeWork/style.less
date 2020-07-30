@@ -65,6 +65,7 @@ header {
         background-color: beige;
         min-width: 150px;
         outline: 1px solid black;
+        min-width: 500px;
     }
 
     &__h5 {
@@ -104,6 +105,7 @@ header {
         &_all {
             width: 30px;
             margin: 3px;
+            color: red;
         }
     }
 
@@ -160,4 +162,24 @@ header {
 footer {
     background-color: gray;
     min-height: @heightmain/5;
+}
+
+@media screen and (max-width:1280px) {
+    .cart-box {
+        position: relative;
+
+        &__box {
+            right: -40px;
+        }
+    }
+}
+
+@media screen and (max-width:775px) {
+    .cart-box {
+        position: relative;
+
+        &__box {
+            right: -195px;
+        }
+    }
 }

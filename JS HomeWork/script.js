@@ -1,5 +1,23 @@
 'use strict'
 
+const API = "products.json"
+let getRequest = (API, products) => {
+    return new Promise((resolve, reject) => {
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', API, true);
+        xhr.onreadystatechange = () => {
+            if (xhr.readyState === 4) {
+                if (xhr.status !== 200) {
+                    console.log('Error');
+                } else {
+                    products(xhr.responseText);
+                }
+            }
+        };
+        xhr.send();
+    });
+}
+
 class ProductList {
     constructor(container = '.products') {
         this.container = container;
@@ -7,32 +25,18 @@ class ProductList {
         this.allProducts = [];
         this.cart = new ShoppingCart;
         this.fetchProducts();
-        this.render();
-        this.addEventManager();
+
     }
     fetchProducts() {
-        this.goods = [{
-                id: 1,
-                title: 'product1',
-                price: 20000
-            },
-            {
-                id: 2,
-                title: 'product2',
-                price: 15000
-            },
-            {
-                id: 3,
-                title: 'product3',
-                price: 19000
-            },
-            {
-                id: 4,
-                title: 'product4',
-                price: 11000
-            },
-        ];
-
+        getRequest(API, (data) => {
+            this.goods = data.then((products) => {
+                this.goods = JSON.parse(data);
+            }).catch((error) => {
+                console.log(result);
+            });
+            this.render();
+            this.addEventManager();
+        });
     }
     render() {
         const block = document.querySelector(this.container);
@@ -48,7 +52,7 @@ class ProductList {
         this.allProducts.forEach((product) => {
             const buttons = document.querySelectorAll(".desc-box__by-btn");
             buttons.forEach((button) => {
-                if (product.id == button.dataset.id) {
+                if (String(product.id) === String(button.dataset.id)) {
                     button.addEventListener('click', product.addInCart.bind(product));
                 }
             })
@@ -86,7 +90,7 @@ class ProductItem {
             productInCart.addEventManager();
         } else {
             this.cart.productsInCart.forEach((productInCart) => {
-                if (productInCart.id == event.target.dataset['id']) {
+                if (String(productInCart.id) === String(event.target.dataset['id'])) {
                     productInCart.qnt += 1;
                 }
             });
@@ -97,7 +101,7 @@ class ProductItem {
 }
 
 class ShoppingCart {
-    constructor(product) {
+    constructor() {
         this.orderID = 0;
         this.productsIdInCart = [];
         this.productsInCart = [];
@@ -125,7 +129,7 @@ class ShoppingCart {
                     </div>
                 </div>`
             );
-             this.addEventManager();
+            this.addEventManager();
         } else {
             if (!(cart_box.querySelector('.cart-box__h4').classList.contains('displayNone'))) {
                 cart_box.querySelector('.cart-box__h4').classList.add('displayNone');
@@ -142,8 +146,8 @@ class ShoppingCart {
                     cart_box_producs_box.insertAdjacentHTML('beforebegin', productInCart.render());
                 }
             }
-            cart_box.querySelector('.cart-box__produtcts-of-order').innerHTML = this.sum('qnt');
-            cart_box.querySelector('.cart-box__sum-of-order').innerHTML = this.sum('price') + '\u20bd';
+            cart_box.querySelector('.cart-box__produtcts-of-order').innerHTML = this.getTotal();
+            cart_box.querySelector('.cart-box__sum-of-order').innerHTML = this.sumOfOrder() + '\u20bd';
         }
 
     }
@@ -151,70 +155,65 @@ class ShoppingCart {
     GetProductInCart(productInCartId) {
         const productInCartBoxs = document.querySelectorAll('.cart-box__product-item');
         for (let productInCartBox of productInCartBoxs) {
-            if (productInCartBox.dataset.id == productInCartId) {
+            if (String(productInCartBox.dataset.id) === String(productInCartId)) {
                 return productInCartBox;
             }
         };
         return false
     }
 
-    sum(what) {
-        let sumOfOrder = 0;
-        for (let productInCart of this.productsInCart) {
-            switch (what) {
-                case 'price':
-                    sumOfOrder += (productInCart.qnt * productInCart.price);
-                    break;
-                case 'qnt':
-                    sumOfOrder += productInCart.qnt;
-                    break;
-            }
-        }
-        return sumOfOrder
+    sumOfOrder() {
+        return this.productsInCart.reduce((sum, productInCart) => {
+            return sum + (productInCart.qnt * productInCart.price);
+        }, 0)
+
+    }
+
+    getTotal() {
+        return this.productsInCart.reduce((sum, productInCart) => {
+            return sum + productInCart.qnt;
+        }, 0)
     }
 
     alreadyInCart(productInCartId) {
         return this.productsIdInCart.includes(productInCartId)
     }
 
-    deleteProductInCart(event) {
-        if (event.target.dataset.id == 'all') {
-            const allProductsInCart = document.querySelectorAll(".cart-box__box");
-            allProductsInCart.forEach((productInCart) => {
-                productInCart.parentNode.removeChild(productInCart);
-            });
-            this.productsIdInCart = [];
-            this.productsInCart = [];
-            this.render();
-        } else {
-            let productInCart = this.cart.GetProductInCart(this.id);
+    deleteAllProductInCart() {
+        const allProductsInCart = document.querySelectorAll(".cart-box__box");
+        allProductsInCart.forEach((productInCart) => {
             productInCart.parentNode.removeChild(productInCart);
-            let i = 0;
-            console.dir(this.cart.productsInCart);
-            for (let produInCart of this.cart.productsInCart) {
-                if (produInCart.id == this.id) {
-                    this.cart.productsInCart.splice(i,1);
-                    this.cart.productsIdInCart.splice(i,1);
-                }
-                ++i;
-            }
-            console.dir(this.cart.productsInCart);
-            if (this.cart.isEmpty()) {
-                let event = new Event('click');
-                const button = document.querySelector(".cart-box__delete-product_all");
-                button.dispatchEvent(event);
-            }
+        });
+        this.productsIdInCart = [];
+        this.productsInCart = [];
+        this.render();
+    }
 
+    deleteProductInCart() {
+        let productInCart = this.cart.GetProductInCart(this.id);
+        productInCart.parentNode.removeChild(productInCart);
+        let i = 0;
+        for (let produInCart of this.cart.productsInCart) {
+            if (String(produInCart.id) === String(this.id)) {
+                this.cart.productsInCart.splice(i, 1);
+                this.cart.productsIdInCart.splice(i, 1);
+            }
+            ++i;
         }
-
+        if (this.cart.isEmpty()) {
+            let event = new Event('click');
+            const button = document.querySelector(".cart-box__delete-product_all");
+            button.dispatchEvent(event);
+        }
+        this.cart.render();
     }
     addEventManager() {
         const button = document.querySelector(".cart-box__delete-product_all")
-        button.addEventListener('click', this.deleteProductInCart.bind(this));
+        button.addEventListener('click', this.deleteAllProductInCart.bind(this));
     }
 
     isEmpty() {
-        return this.productsIdInCart.length === 0
+        return this.productsIdInCart.length === 0;
     }
 }
 
@@ -230,7 +229,7 @@ class ProductInCart extends ProductItem {
         <a href="#" class="desc-box__link"><h5 class="cart-box__h5">${this.title}</h5></a>
         <input class="cart-box__h5" type="text" value=${this.qnt}>
         <h5 class="cart-box__h5">${this.price} \u20bd</h5>
-        <h5 class="cart-box__h5">${this.price*this.qnt} \u20bd</h5>
+        <h5 class="cart-box__h5">${this.price * this.qnt} \u20bd</h5>
         <button class="cart-box__delete-product" data-id="${this.id}">X</button>
         </div>`;
     }
@@ -238,7 +237,7 @@ class ProductInCart extends ProductItem {
     addEventManager() {
         const buttons = document.querySelectorAll(".cart-box__delete-product");
         buttons.forEach((button) => {
-            if (this.id == button.dataset.id) {
+            if (String(this.id) === String(button.dataset.id)) {
                 button.addEventListener('click', this.cart.deleteProductInCart.bind(this));
             }
         });
