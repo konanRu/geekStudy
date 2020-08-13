@@ -1,16 +1,16 @@
 'use strict'
 
-const API = "products.json"
-let getRequest = (API, products) => {
+const API = "https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/catalogData.json"
+let getRequest = (url) => {
     return new Promise((resolve, reject) => {
         let xhr = new XMLHttpRequest();
-        xhr.open('GET', API, true);
+        xhr.open('GET', url, true);
         xhr.onreadystatechange = () => {
             if (xhr.readyState === 4) {
                 if (xhr.status !== 200) {
-                    console.log('Error');
+                    reject('Error');
                 } else {
-                    products(xhr.responseText);
+                    resolve(xhr.responseText);
                 }
             }
         };
@@ -28,14 +28,13 @@ class ProductList {
 
     }
     fetchProducts() {
-        getRequest(API, (data) => {
-            this.goods = data.then((products) => {
-                this.goods = JSON.parse(data);
-            }).catch((error) => {
-                console.log(result);
-            });
+        getRequest(API).then((products) => {
+            // console.log(JSON.parse(products))
+            this.goods = JSON.parse(products) // products.json()
             this.render();
             this.addEventManager();
+        }).catch((error) => {
+            console.log(error);
         });
     }
     render() {
@@ -62,15 +61,15 @@ class ProductList {
 
 class ProductItem {
     constructor(product, cart, img = 'https://placeimg.com/140/140/tech') {
-        this.title = product.title;
+        this.title = product.product_name;
         this.price = product.price;
         this.cart = cart;
-        this.id = product.id;
+        this.id = product.id_product;
         this.img = img;
     }
 
     render() {
-        return `<div class ="product-item" data-id="${this.id}">
+        return `<div class ="product-item" id="${this.id}" data-id="${this.id}">
         <img src="${this.img}" alt="photo">
         <div class="desc-box">
             <a href="#" class="desc-box__link"><h3 class="desc-box__h3">${this.title}</h3></a>
@@ -112,7 +111,7 @@ class ShoppingCart {
         const cart_box = document.querySelector('.cart-box');
         if (this.isEmpty()) {
             cart_box.insertAdjacentHTML('beforeend',
-                `<div class="cart-box__box">
+                `<div class="cart-box__box displayNone" >
                     <h4 class="cart-box__h4">Ваша корзина пуста!</h4>
                     <div class="cart-box__box-titels displayNone">
                         <h5 class="cart-box__h5">Название товара</h5>
@@ -201,11 +200,8 @@ class ShoppingCart {
             ++i;
         }
         if (this.cart.isEmpty()) {
-            let event = new Event('click');
-            const button = document.querySelector(".cart-box__delete-product_all");
-            button.dispatchEvent(event);
+            this.cart.deleteAllProductInCart();
         }
-        this.cart.render();
     }
     addEventManager() {
         const button = document.querySelector(".cart-box__delete-product_all")
@@ -220,12 +216,14 @@ class ShoppingCart {
 class ProductInCart extends ProductItem {
     constructor(product) {
         super(product);
+        this.id = product.id;
+        this.title = product.title;
         this.cart = product.cart;
         this.orderID = 0;
         this.qnt = 0;
     }
     render() {
-        return `<div class = "cart-box__product-item" data-id=${this.id}>
+        return `<div class = "cart-box__product-item" id=${this.id} data-id="${this.id}">
         <a href="#" class="desc-box__link"><h5 class="cart-box__h5">${this.title}</h5></a>
         <input class="cart-box__h5" type="text" value=${this.qnt}>
         <h5 class="cart-box__h5">${this.price} \u20bd</h5>
@@ -243,5 +241,58 @@ class ProductInCart extends ProductItem {
         });
     }
 }
+
+const app = new Vue({
+    el: '#app',
+    data: {
+        searchLine: '',
+        products: [],
+        isVisibleCart: false,
+    },
+    methods: {
+        filterGoods() {
+            if (this.searchLine) {
+                const regExpretion = new RegExp(this.searchLine, 'i');
+                const findProducts = this.products.filter(product => !regExpretion.test(product.product_name));
+                findProducts.forEach((product) => {
+                    document.getElementById(`${product.id_product}`).classList.add('displayNone');
+                });
+            } else {
+                this.products.forEach((product) => {
+                    document.getElementById(`${product.id_product}`).classList.remove('displayNone');
+                });
+            }
+        },
+        showCart(){
+            const cart = document.querySelector(".cart-box__box");
+            if(!this.isVisibleCart) {
+                cart.classList.remove("displayNone");
+            } else {
+                cart.classList.add("displayNone");
+            };
+            this.isVisibleCart=!this.isVisibleCart;
+        },
+        getJson(url) {
+            return fetch(url)
+                .then(result => result.json())
+                .catch(error => {
+                    console.log(error);
+                })
+        },
+    },
+    computed: {
+
+    },
+
+    mounted() {
+        this.getJson(`${API}`)
+            .then(data => {
+                for (let el of data) {
+                    this.products.push(el);
+                }
+            });
+    },
+
+});
 
 const products = new ProductList;

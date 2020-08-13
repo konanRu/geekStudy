@@ -1,0 +1,155 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  color: black;
+}
+body {
+  background-color: #9e9a9a;
+  padding: 0 calc(50% - 30vw);
+}
+main {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  justify-content: space-between;
+}
+header {
+  background-color: gray;
+  min-height: 20vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px 0px;
+}
+.navBar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.menuBar {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  justify-content: center;
+}
+.menuBar__li {
+  outline: 1px solid black;
+  background-color: white;
+  padding: 20px;
+}
+.menuBar__link {
+  margin: 10px 25px;
+}
+.menuBar__link:hover {
+  box-shadow: 0 0 25px black;
+}
+.cart-box {
+  position: relative;
+}
+.cart-box__box {
+  position: absolute;
+  top: 45px;
+  right: 0;
+  padding: 10px;
+  background-color: beige;
+  outline: 1px solid black;
+  min-width: 500px;
+}
+.cart-box__h5 {
+  margin: 5px;
+  text-align: center;
+  width: 100px;
+  font-size: 12px;
+  border: none;
+}
+.cart-box__box-titels {
+  display: flex;
+}
+.cart-box__box-end-titels {
+  display: flex;
+}
+.cart-box__product-item {
+  display: flex;
+}
+.cart-box__h4 {
+  text-align: center;
+}
+.cart-box__produtcts-of-order,
+.cart-box__sum-of-order {
+  font-size: 15px;
+}
+.cart-box__delete-product {
+  width: 25px;
+  margin: 5px;
+  color: red;
+}
+.cart-box__delete-product_all {
+  width: 30px;
+  margin: 3px;
+  color: red;
+}
+.products {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.product-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 15px 25px;
+  margin: 15px 5px;
+  min-height: 150px;
+  outline: 1px solid black;
+}
+.desc-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.desc-box__h3 {
+  font-size: 22px;
+  margin: 10px 0;
+}
+.desc-box__p {
+  margin: 10px 0;
+  font-weight: bold;
+  color: red;
+}
+.desc-box__by-btn {
+  margin: 10px 0;
+  padding: 5px;
+}
+.search-box {
+  display: flex;
+}
+.search-box__button {
+  height: 20px;
+  width: 55px;
+}
+.displayNone {
+  display: none;
+}
+footer {
+  background-color: gray;
+  min-height: 20vh;
+}
+@media screen and (max-width: 1280px) {
+  .cart-box {
+    position: relative;
+  }
+  .cart-box__box {
+    right: -40px;
+  }
+}
+@media screen and (max-width: 775px) {
+  .cart-box {
+    position: relative;
+  }
+  .cart-box__box {
+    right: -195px;
+  }
+}

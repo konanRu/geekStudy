@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Lessons5HomeWork</title>
+</head>
+
+<body>
+    <div id="app">
+        <main>
+            <header>
+                <nav class="navBar">
+                    <ul class="menuBar">
+                        <a href="#" class="menuBar__link">
+                            <li class="menuBar__li">
+                                <div class="menuBar__p">Главная</div>
+                            </li>
+                        </a>
+                        <a href="#" class="menuBar__link">
+                            <li class="menuBar__li">
+                                <div class="menuBar__p">Каталог</div>
+                            </li>
+                        </a>
+                        <a href="#" class="menuBar__link">
+                            <li class="menuBar__li cart-box">
+                                <div class="menuBar__p"  @click="showCart">Корзина</div>
+                            </li>
+                        </a>
+                    </ul>
+                    <div class="search-box">
+                        <input type="text" class="search-box__input" v-model="searchLine">
+                        <button class="search-box__button" @click="filterGoods">Поиск </button>
+                    </div>
+                </nav>
+            </header>
+            <div class="products">
+            </div>
+            <footer>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
